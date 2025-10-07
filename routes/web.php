@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -32,6 +33,8 @@ Route::middleware(['auth'])->group(function () {
         ->name('two-factor.show');
 
 Route::resource('products', ProductController::class);
+
+Route::get('/category/{id}', [CategoryController::class, 'show'])->name('category.show');
 
 });
 

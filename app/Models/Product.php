@@ -11,9 +11,14 @@ class Product extends Model
 
     protected $fillable = [
         'name',
-        'price',
         'description',
+        'price',
+        'image_url',
     ];
 
-    
+    // Relación muchos a muchos
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'categories_products');
+    }
 }

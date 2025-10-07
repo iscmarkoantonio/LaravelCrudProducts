@@ -15,11 +15,11 @@ class ProductController extends Controller
     public function index()
     {
 
-        return view('products.index', [
-            'products' => Product::orderBy('updated_at', 'DESC')->paginate(10)
-        ]);        
-        // $products = Product::paginate(15);
-        // return view('products.index', compact('products'));
+        // return view('products.index', [
+        //     'products' => Product::orderBy('updated_at', 'DESC')->paginate(10)
+        // ]);        
+        $products = Product::paginate(15);
+        return view('products.index', compact('products'));
 
         
     }
@@ -48,18 +48,17 @@ class ProductController extends Controller
             ->route('products.index')
             ->with('success', 'Product created successfully!');
 
-        
 
-        
-           
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Product $product)
     {
-        //
+        return view('products.show', [
+            'product' => $product
+        ]);
     }
 
     /**
@@ -93,8 +92,10 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return redirect()->route('products.index');
     }
 }

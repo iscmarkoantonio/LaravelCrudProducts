@@ -26,7 +26,7 @@
                 <thead
                     class="border-b border-outline bg-surface-alt text-sm text-on-surface-strong dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark-strong">
                     <tr>
-                        <th scope="col" class="p-4">ID</th>
+                        <th scope="col" class="p-4 font-semibold">ID</th>
                         <th scope="col" class="p-4">Image</th>
                         <th scope="col" class="p-4">Name</th>
                         <th scope="col" class="p-4">Price</th>
@@ -46,20 +46,30 @@
                             <td class="p-4">{{ $product->description }}</td>
                             <td class="p-4">{{ $product->created_at->diffForHumans() }}</td>
                             <td class="p-4">{{ $product->updated_at->diffForHumans() }}</td>
-                            <td class="p-4">
+                            <td class="p-4 flex items-center space-x-3">
                                 <a href="{{ route('products.edit', $product) }}"
                                     class="font-medium text-primary underline-offset-2 hover:underline focus:underline focus:outline-hidden dark:text-primary-dark">Edit</a>
+
+                                <a href="{{ route('products.show', $product) }}"
+                                    class="font-medium text-primary underline-offset-2 hover:underline focus:underline focus:outline-hidden dark:text-primary-dark">View</a>
+
+                                <form method="POST" action="{{ route('products.destroy', $product) }}"
+                                    onsubmit="return confirm('Are you sure  want to delete this article')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="cursor-pointer font-medium text-danger underline-offset-2 hover:underline focus:underline focus:outline-hidden dark:text-primary-dark">
+                                        Delete
+                                    </button>
+                                </form>
 
                             </td>
                         </tr>
                     @empty
                         <tr class="text-center">
-                            <td class="p-4">No Data</td>
+                            <td class="p-4" colspan="8">No Data</td>
                         </tr>
                     @endforelse
-
-
-
                 </tbody>
             </table>
         </div>
